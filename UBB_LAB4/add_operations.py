@@ -11,11 +11,29 @@ def add(
     """
 
     if apartment_index not in apartments:
-        apartments[apartment_index] = []
+        apartments[apartment_index] = {}
 
-    expense = auxiliary_operations.create_expense(expense_value, expense_type)
+    if expense_type not in apartments[apartment_index]:
+        auxiliary_operations.create_expense(
+            apartments,
+            apartment_index,
+            expense_type
+        )
 
-    apartments[apartment_index].append(expense)
+    previous_expense_value = auxiliary_operations.get_expense(
+        apartments,
+        apartment_index,
+        expense_type
+    )
+
+    new_expense_value = previous_expense_value + expense_value
+
+    auxiliary_operations.set_expense(
+        apartments,
+        apartment_index,
+        expense_type,
+        new_expense_value,
+    )
 
 def update(
     apartments, 
@@ -30,4 +48,9 @@ def update(
     if apartment_index not in apartments:
         print("Apartamentul nu este înregistrat")
 
-    apartments[apartment_index][expense_type] = expense_value
+    auxiliary_operations.set_expense(
+        apartments,
+        apartment_index,
+        expense_type,
+        expense_value,
+    )

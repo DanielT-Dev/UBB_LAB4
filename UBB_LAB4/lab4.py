@@ -16,14 +16,14 @@ def search_apartments(apartments, search_value):
 
     valid_apartments = []
     for apartment_index in apartments.keys():
-        if auxiliary_operations.compute_total_expense(apartments, apartment_index):
+        if auxiliary_operations.compute_total_expense(apartments, apartment_index) > search_value:
             valid_apartments.append(apartment_index)
 
     return valid_apartments
 
-def run():
-    apartments = {}
+apartments = {}
 
+def run():
     while True:
         menu()
 
@@ -45,7 +45,7 @@ def run():
                     expense_type
                 )
 
-                print("Cheltuiala a fost adăugată.")
+                print("\n Cheltuiala a fost adăugată. \n")
 
             case 2: 
 
@@ -62,7 +62,7 @@ def run():
                     expense_type
                 )
 
-                print("Suma cheltuielii a fost modificată.")
+                print("\n Suma cheltuielii a fost modificată. \n")
 
             case 3:
 
@@ -72,6 +72,58 @@ def run():
                 # Se realizează operația de căutare 
                 valid_apartments = search_apartments(apartments, search_value)
 
-                print("Apartamentele care au cheltuieli mai mari decât suma dată sunt: ", valid_apartments)
+                print("\n Apartamentele care au cheltuieli mai mari decât suma dată sunt: ", valid_apartments, "\n")
+
+def test():
+    print()
+    print("Se testează aplicația")
+
+    add_operations.add(
+        apartments,
+        1,
+        10,
+        "apă"
+    )
+    add_operations.add(
+        apartments,
+        2,
+        15,
+        "curent"
+    )
+    add_operations.add(
+        apartments,
+        3,
+        20,
+        "apă"
+    )
+
+    search_apartments(
+        apartments,
+        8
+    )
+
+    add_operations.update(
+        apartments,
+        2,
+        7,
+        "curent"
+    )
+
+    assert search_apartments(
+        apartments,
+        8
+    ) == [1, 3]
+    assert search_apartments(
+        apartments,
+        17
+    ) == [3]
+    assert search_apartments(
+        apartments,
+        25
+    ) == []
+
+    print("Aplicația a fost testată")
+
+test()
 
 run()
