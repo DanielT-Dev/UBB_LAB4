@@ -1,4 +1,5 @@
 import add_operations
+import delete_operations
 import search_operations
 import auxiliary_operations
 
@@ -9,6 +10,9 @@ def menu():
     print("Pentru a modifica o cheltuială la un apartament apasă tasta 2")
     print("Pentru a tipări toate apartamentele care au cheltuieli mai mari decât o sumă dată apasă tasta 3")
     print("Pentru a tipări cheltuielile de un anumit tip de la toate apartamentele apasă tasta 4")
+    print("Pentru a șterge toate cheltuielile de la un apartament apasă tasta 5")
+    print("Pentru a șterge toate cheltuielile de la apartamente consecutive apasă tasta 6")
+    print("Pentru a șterge cheltuielile de un anumit tip de la toate apartamentele apasă tasta 7")
     print()
 
 apartments = {}
@@ -81,6 +85,34 @@ def run():
                     print("Apartamentul cu numărul", apartment_index, "are o cheltuială de", expense_value, "la", search_type)
                 
                 print()
+            
+            case 5:
+
+                # Se cere input-ul de la utilizator
+                apartment_index = int(input("Inserați numărul apartamentului: "))
+
+                delete_operations.delete_by_apartment(apartments, apartment_index)
+
+                print("\nCheltuielile de la apartamentul cu numărul", apartment_index, "au fost șterse\n")
+
+            case 6:
+
+                # Se cere input-ul de la utilizator
+                apartment_index1 = int(input("Inserați numărul primului apartament "))
+                apartment_index2 = int(input("Inserați numărul celui de al doilea apartament "))
+
+                delete_operations.delete_by_range(apartments, apartment_index1, apartment_index2)
+
+                print("\nCheltuielile de la apartamentele din intervalul", apartment_index1, " -> ", apartment_index2, "au fost șterse\n")
+
+            case 7:
+
+                # Se cere input-ul de la utilizator
+                search_type = int(input("Inserați tipul de cheltuială pentru care doriți să realizați ștergerea: "))
+
+                delete_operations.delete_by_type(apartments, search_type)
+
+                print("\nCheltuielile de tip", search_type, "au fost șterse\n")
 
 def test():
     print()
