@@ -1,1 +1,1 @@
-# UBB_LAB4
+# UBB_LAB4 (Apartment Expense Tracker App)
